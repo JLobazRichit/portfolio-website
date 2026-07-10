@@ -11,7 +11,7 @@ const About = () => {
         <div className="grid md:grid-cols-2 gap-10 mt-10">
           <div data-aos="fade-right">
             <h2 className="text-xl font-semibold text-white mb-3">Biography</h2>
-            <p className="text-slate-400 leading-relaxed mb-6">{personalInfo.bio}</p>
+            <p className="text-slate-400 leading-relaxed mb-6">{personalInfo.aboutbio}</p>
 
             <h2 className="text-xl font-semibold text-white mb-3">Career Objective</h2>
             <p className="text-slate-400 leading-relaxed">{personalInfo.objective}</p>
