@@ -13,15 +13,19 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
     }
   };
 
-  // Convert GitHub blob URL to raw content URL for PDF viewing
-  const getRawUrl = (url) => {
-    if (url.includes('github.com') && url.includes('/blob/')) {
-      return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
-    }
-    return url;
+  const handleLoadStart = () => {
+    setIsPdfLoading(true);
+    setPdfError(false);
   };
 
-  const rawCertificateLink = getRawUrl(certificateLink);
+  const handleLoadEnd = () => {
+    setIsPdfLoading(false);
+  };
+
+  const handleError = () => {
+    setIsPdfLoading(false);
+    setPdfError(true);
+  };
 
   return (
     <div
@@ -47,12 +51,12 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
             <div className="text-center p-8">
               <p className="text-slate-400 mb-4">Unable to display PDF in browser</p>
               <a
-                href={rawCertificateLink}
+                href={certificateLink}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block px-6 py-2 bg-gradient-primary text-white rounded-lg hover:opacity-90 transition-opacity"
               >
-                Download Certificate
+                Open Certificate
               </a>
             </div>
           ) : (
@@ -62,15 +66,12 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
                   <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
                 </div>
               )}
-              <iframe
-                src={`${rawCertificateLink}#toolbar=0`}
+              <embed
+                src={`${certificateLink}#toolbar=0&navpanes=0`}
+                type="application/pdf"
                 className="w-full h-full"
-                onLoad={() => setIsPdfLoading(false)}
-                onError={() => {
-                  setIsPdfLoading(false);
-                  setPdfError(true);
-                }}
-                title={`${title} Certificate`}
+                onLoad={handleLoadEnd}
+                onError={handleError}
               />
             </>
           )}
@@ -79,17 +80,15 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
         {/* Footer */}
         <div className="p-4 border-t border-white/10 bg-slate-800/50 flex items-center justify-between">
           <p className="text-sm text-slate-400">
-            {pdfError ? "Download to view full certificate" : "Click outside or the X button to close"}
+            {pdfError ? "Download to view full certificate" : "Right-click to save or download"}
           </p>
-          {pdfError && (
-            <a
-              href={rawCertificateLink}
-              download
-              className="px-4 py-2 bg-accent text-slate-950 font-semibold rounded-lg hover:bg-accent-light transition-colors"
-            >
-              Download
-            </a>
-          )}
+          <a
+            href={certificateLink}
+            download
+            className="px-4 py-2 bg-accent text-slate-950 font-semibold rounded-lg hover:bg-accent-light transition-colors"
+          >
+            Download
+          </a>
         </div>
       </div>
     </div>
