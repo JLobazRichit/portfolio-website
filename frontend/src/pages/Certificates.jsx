@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import { HiOutlineExternalLink, HiOutlineBadgeCheck } from 'react-icons/hi';
 import api from '../services/api';
 import SkeletonCard from '../components/SkeletonCard';
+import CertificateModal from '../components/CertificateModal';
 import { staticCertificates } from '../constants/staticData';
 
 const API_ORIGIN = (import.meta.env.VITE_API_URL || 'http://localhost:5000/api').replace('/api', '');
@@ -12,6 +13,7 @@ const Certificates = () => {
   const [certificates, setCertificates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [category, setCategory] = useState('All');
+  const [selectedCertificate, setSelectedCertificate] = useState(null);
 
   useEffect(() => {
     const fetchCertificates = async () => {
@@ -31,6 +33,14 @@ const Certificates = () => {
     };
     fetchCertificates();
   }, [category]);
+
+  const openCertificateModal = (cert) => {
+    setSelectedCertificate(cert);
+  };
+
+  const closeCertificateModal = () => {
+    setSelectedCertificate(null);
+  };
 
   return (
     <main className="pt-16">
@@ -95,14 +105,22 @@ const Certificates = () => {
                       {new Date(cert.date).toLocaleDateString('en-IN', { year: 'numeric', month: 'short' })}
                     </p>
                     {cert.certificateLink && (
-                      <a
-                        href={cert.certificateLink}
-                        target="_blank"
-                        rel="noreferrer"
-                        className="flex items-center gap-1.5 text-sm text-accent hover:text-accent-light mt-auto"
-                      >
-                        <HiOutlineExternalLink size={16} /> View Certificate
-                      </a>
+                      <div className="flex gap-2 mt-auto">
+                        <button
+                          onClick={() => openCertificateModal(cert)}
+                          className="flex items-center gap-1.5 text-sm text-accent hover:text-accent-light transition-colors flex-1 justify-center px-3 py-2 rounded bg-accent/10 hover:bg-accent/20"
+                        >
+                          <HiOutlineExternalLink size={16} /> View
+                        </button>
+                        <a
+                          href={cert.certificateLink}
+                          download
+                          className="flex items-center gap-1.5 text-sm text-accent hover:text-accent-light transition-colors px-3 py-2 rounded bg-accent/10 hover:bg-accent/20"
+                          title="Download certificate"
+                        >
+                          ⬇
+                        </a>
+                      </div>
                     )}
                   </div>
                 </div>
@@ -111,6 +129,16 @@ const Certificates = () => {
           </div>
         )}
       </section>
+
+      {/* Certificate Modal */}
+      {selectedCertificate && (
+        <CertificateModal
+          isOpen={!!selectedCertificate}
+          onClose={closeCertificateModal}
+          certificateLink={selectedCertificate.certificateLink}
+          title={selectedCertificate.title}
+        />
+      )}
     </main>
   );
 };
