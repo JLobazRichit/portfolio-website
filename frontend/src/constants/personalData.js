@@ -19,7 +19,7 @@ export const personalInfo = {
   resumeUrl: '/resume.pdf',
   objective:
     'Motivated B.E. Computer Science & Engineering (IoT) student at K.S.R. College of Engineering seeking a Software Development internship to apply expertise in Python, Java, IoT systems, and AI/[...]
-  bio: "I'm a second-year Computer Science & Engineering (IoT) student who likes building things that sense the real world and respond to it intelligently — from ESP32 sensor networks that catch[...]
+  bio: "I'm a third-year Computer Science & Engineering (IoT) student who likes building things that sense the real world and respond to it intelligently — from ESP32 sensor networks that catch[...]
 };
 
 export const education = [
