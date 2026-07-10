@@ -16,7 +16,7 @@ export const personalInfo = {
   linkedin: 'https://linkedin.com/in/lobaz-richit-j',
   github: 'https://github.com/JLobazRichit',
   githubUsername: 'JLobazRichit',
-  resumeUrl: '/resume.pdf',
+  resumeUrl: '/Resume.pdf',
   objective:
     'Motivated B.E. Computer Science & Engineering (IoT) student at K.S.R. College of Engineering seeking a Software Development internship to apply expertise in Python, Java, IoT systems, and AI/ML. Passionate about building smart, data-driven solutions and eager to contribute to impactful real-world projects.',
   bio: "I'm a second-year Computer Science & Engineering (IoT) student who likes building things that sense the real world and respond to it intelligently — from ESP32 sensor networks that catch spoilage before it happens, to exploring how AI/ML can add a predictive layer to embedded systems. I care about shipping working systems, not just prototypes: dashboards that update live, alerts that actually reach someone, and code that's clean enough to hand off.",
