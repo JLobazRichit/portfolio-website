@@ -13,19 +13,12 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
     }
   };
 
-  const handleLoadStart = () => {
-    setIsPdfLoading(true);
-    setPdfError(false);
+  // Convert raw GitHub URL to Google Docs Viewer for proper display
+  const getViewerUrl = (url) => {
+    return `https://docs.google.com/gview?url=${encodeURIComponent(url)}&embedded=true`;
   };
 
-  const handleLoadEnd = () => {
-    setIsPdfLoading(false);
-  };
-
-  const handleError = () => {
-    setIsPdfLoading(false);
-    setPdfError(true);
-  };
+  const viewerUrl = getViewerUrl(certificateLink);
 
   return (
     <div
@@ -66,12 +59,16 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
                   <div className="w-8 h-8 border-4 border-accent border-t-transparent rounded-full animate-spin"></div>
                 </div>
               )}
-              <embed
-                src={`${certificateLink}#toolbar=0&navpanes=0`}
-                type="application/pdf"
-                className="w-full h-full"
-                onLoad={handleLoadEnd}
-                onError={handleError}
+              <iframe
+                src={viewerUrl}
+                className="w-full h-full border-0"
+                onLoad={() => setIsPdfLoading(false)}
+                onError={() => {
+                  setIsPdfLoading(false);
+                  setPdfError(true);
+                }}
+                title={`${title} Certificate`}
+                allow="autoplay"
               />
             </>
           )}
@@ -80,7 +77,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
         {/* Footer */}
         <div className="p-4 border-t border-white/10 bg-slate-800/50 flex items-center justify-between">
           <p className="text-sm text-slate-400">
-            {pdfError ? "Download to view full certificate" : "Right-click to save or download"}
+            {pdfError ? "Download to view full certificate" : "Powered by Google Docs Viewer"}
           </p>
           <a
             href={certificateLink}
