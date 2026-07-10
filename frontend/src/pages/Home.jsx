@@ -9,25 +9,25 @@ const Home = () => {
   return (
     <main className="relative min-h-screen flex items-center overflow-hidden pt-16">
       {/* Animated floating orbs - ambient background */}
-      <div className="absolute top-1/4 -left-20 w-72 h-72 bg-primary/20 rounded-full blur-3xl animate-float pointer-events-none" />
+      <div className="absolute top-1/4 -left-20 w-80 h-72 bg-primary/20 rounded-full blur-3xl animate-float pointer-events-none" />
       <div
         className="absolute bottom-1/4 -right-20 w-96 h-96 bg-accent/20 rounded-full blur-3xl animate-float pointer-events-none"
         style={{ animationDelay: '2s' }}
       />
 
-      <div className="section-container relative z-10 grid md:grid-cols-[1.2fr_0.8fr] items-center gap-12">
+      <div className="section-container relative z-10 grid md:grid-cols-[1.5fr_0.8fr] items-center gap-12">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7 }}
         >
           <p className="section-eyebrow">// portfolio</p>
-          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-4">
+          <h1 className="text-4xl md:text-6xl font-extrabold text-white leading-tight mb-5">
             Hi, I'm {personalInfo.name.split(' ')[0]}{' '}
             <span className="text-accent">{personalInfo.name.split(' ').slice(1).join(' ')}</span>
           </h1>
 
-          <div className="text-xl md:text-2xl font-mono text-slate-300 h-10 mb-6">
+          <div className="text-xl md:text-2xl font-mono text-slate-400 h-10 mb-6">
             <TypeAnimation
               sequence={personalInfo.taglineRoles.flatMap((role) => [role, 2000])}
               wrapper="span"
@@ -37,7 +37,7 @@ const Home = () => {
             />
           </div>
 
-          <p className="text-slate-400 max-w-xl mb-8 leading-relaxed">{personalInfo.bio}</p>
+          <p className="text-slate-400 max-w-5xl mb-8 leading-relaxed">{personalInfo.bio}</p>
 
           <div className="flex flex-wrap gap-4">
             <a href={personalInfo.resumeUrl} download className="btn-gradient">
