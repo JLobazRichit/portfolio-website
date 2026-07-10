@@ -22,12 +22,12 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
 
   return (
     <div
-      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
+      className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-2 backdrop-blur-sm"
       onClick={handleBackdropClick}
     >
-      <div className="bg-slate-900 rounded-lg w-full max-w-2xl max-h-[80vh] overflow-hidden flex flex-col border border-white/10 shadow-2xl">
+      <div className="bg-slate-900 rounded-lg w-full max-w-6xl h-[90vh] overflow-hidden flex flex-col border border-white/10 shadow-2xl">
         {/* Header */}
-        <div className="flex items-center justify-between p-4 border-b border-white/10 bg-slate-800/50">
+        <div className="flex items-center justify-between p-4 border-b border-white/10 bg-slate-800/50 flex-shrink-0">
           <h2 className="text-base font-semibold text-white truncate">{title}</h2>
           <button
             onClick={onClose}
@@ -39,7 +39,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
         </div>
 
         {/* PDF Viewer */}
-        <div className="flex-1 overflow-hidden flex items-center justify-center bg-slate-950">
+        <div className="flex-1 overflow-hidden flex items-center justify-center bg-slate-950 min-h-0">
           {pdfError ? (
             <div className="text-center p-6">
               <p className="text-slate-400 mb-4 text-sm">Unable to display PDF in browser</p>
@@ -75,7 +75,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
         </div>
 
         {/* Footer */}
-        <div className="p-3 border-t border-white/10 bg-slate-800/50 flex items-center justify-between gap-3">
+        <div className="p-3 border-t border-white/10 bg-slate-800/50 flex items-center justify-between gap-3 flex-shrink-0">
           <p className="text-xs text-slate-400">
             {pdfError ? "Download to view full certificate" : "Google Docs Viewer"}
           </p>
