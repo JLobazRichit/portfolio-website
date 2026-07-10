@@ -13,6 +13,16 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
     }
   };
 
+  // Convert GitHub blob URL to raw content URL for PDF viewing
+  const getRawUrl = (url) => {
+    if (url.includes('github.com') && url.includes('/blob/')) {
+      return url.replace('github.com', 'raw.githubusercontent.com').replace('/blob/', '/');
+    }
+    return url;
+  };
+
+  const rawCertificateLink = getRawUrl(certificateLink);
+
   return (
     <div
       className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4 backdrop-blur-sm"
@@ -37,7 +47,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
             <div className="text-center p-8">
               <p className="text-slate-400 mb-4">Unable to display PDF in browser</p>
               <a
-                href={certificateLink}
+                href={rawCertificateLink}
                 target="_blank"
                 rel="noreferrer"
                 className="inline-block px-6 py-2 bg-gradient-primary text-white rounded-lg hover:opacity-90 transition-opacity"
@@ -53,7 +63,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
                 </div>
               )}
               <iframe
-                src={`${certificateLink}#toolbar=0`}
+                src={`${rawCertificateLink}#toolbar=0`}
                 className="w-full h-full"
                 onLoad={() => setIsPdfLoading(false)}
                 onError={() => {
@@ -73,7 +83,7 @@ const CertificateModal = ({ isOpen, onClose, certificateLink, title }) => {
           </p>
           {pdfError && (
             <a
-              href={certificateLink}
+              href={rawCertificateLink}
               download
               className="px-4 py-2 bg-accent text-slate-950 font-semibold rounded-lg hover:bg-accent-light transition-colors"
             >
